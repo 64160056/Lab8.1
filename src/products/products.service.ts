@@ -33,7 +33,8 @@ export class ProductsService {
     return this.productRepository.save(updatedProduct);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} product`;
+  async remove(id: number) {
+    const product = await this.productRepository.findOneBy({ id: id });
+    return this.productRepository.remove(product);
   }
 }
