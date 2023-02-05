@@ -13,7 +13,10 @@ export class ProductsService {
   ) {}
 
   create(createProductDto: CreateProductDto) {
-    return 'This action adds a new product';
+    const product: Product = new Product();
+    product.name = createProductDto.name;
+    product.price = createProductDto.price;
+    return this.productRepository.save(product);
   }
 
   findAll(): Promise<Product[]> {
@@ -21,7 +24,7 @@ export class ProductsService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} product`;
+    return this.productRepository.findOneBy({ id: id });
   }
 
   update(id: number, updateProductDto: UpdateProductDto) {
