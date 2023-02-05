@@ -34,7 +34,8 @@ export class UsersService {
     return this.usersRepository.save(updatedUser);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async remove(id: number) {
+    const user = await this.usersRepository.findOneBy({ id: id });
+    return this.usersRepository.remove(user);
   }
 }
