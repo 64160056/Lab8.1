@@ -6,6 +6,7 @@ import { ProductsModule } from './products/products.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Product } from './products/entities/product.entity';
 import { User } from './users/entities/user.entity';
+import { DataSource } from 'typeorm';
 
 @Module({
   imports: [
@@ -13,7 +14,7 @@ import { User } from './users/entities/user.entity';
     ProductsModule,
     TypeOrmModule.forRoot({
       type: 'sqlite',
-      database: 'database.sqlite',
+      database: 'db.sqlite',
       synchronize: true,
       logging: false,
       entities: [User, Product],
@@ -25,4 +26,6 @@ import { User } from './users/entities/user.entity';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(private dataSource: DataSource) {}
+}
